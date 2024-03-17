@@ -39,8 +39,8 @@ val_ds_path.mkdir(parents=True, exist_ok=True)
 chkpt_path = project_path / "checkpoints"
 chkpt_path.mkdir(parents=True, exist_ok=True)
 
-train_data = datasets.load_dataset("ccdv/cnn_dailymail", "3.0.0", split="train[:30%]")    #300k
-val_data = datasets.load_dataset("ccdv/cnn_dailymail", "3.0.0", split="validation[:30%]")
+train_data = datasets.load_dataset("ccdv/cnn_dailymail", "3.0.0", split="train")    #300k
+val_data = datasets.load_dataset("ccdv/cnn_dailymail", "3.0.0", split="validation")
      
 train_data.save_to_disk(train_ds_path/'30_percent_train')
 val_data.save_to_disk(train_ds_path/'30_percent_val')
@@ -70,13 +70,13 @@ checkpoint_callback = ModelCheckpoint(
     verbose=True,
     monitor="val_loss",
 )
-wandb.login(key='53f5746150b2ce7b0552996cb6acc3beec6e487f')
+# wandb.login(key='53f5746150b2ce7b0552996cb6acc3beec6e487f')
 logger = WandbLogger(project="text-summarization",
                              name="T5",
                              log_model="all")
 
 trainer = pl.Trainer(
-    logger=logger,
+    #logger=logger,
     callbacks=[checkpoint_callback],
     max_epochs=N_EPOCHS,
     enable_progress_bar=True,
