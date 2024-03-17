@@ -79,8 +79,9 @@ trainer = pl.Trainer(
     logger=logger,
     callbacks=[checkpoint_callback],
     max_epochs=N_EPOCHS,
-    log_every_n_steps=log_steps,
-    val_check_interval=valid_steps
+    enable_progress_bar=True,
+        deterministic=False,
+     accumulate_grad_batches=1
 )
 
 trainer.fit(model, data_module)
