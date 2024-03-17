@@ -12,8 +12,8 @@ from transformers import (
     T5ForConditionalGeneration,
     T5TokenizerFast as T5Tokenizer
 )
-from ..dataset.datamodule import *
-from ..model.model import *
+# from ..dataset.datamodule import *
+# from ..model.model import *
 
 
 pl.seed_everything(42)
@@ -58,28 +58,28 @@ learning_rate = 0.0001
 log_steps = 500
 valid_steps = 500
 tokenizer = T5Tokenizer.from_pretrained(MODEL_NAME, model_max_length=512)
-data_module = NewsSummaryDataModule(train_data, val_data, tokenizer, batch_size=BATCH_SIZE, num_workers=4)
+# data_module = NewsSummaryDataModule(train_data, val_data, tokenizer, batch_size=BATCH_SIZE, num_workers=4)
 
-model = NewsSummaryModel(lr=learning_rate)
+# model = NewsSummaryModel(lr=learning_rate)
 
-chkpt_path = "../checkpoints"
-checkpoint_callback = ModelCheckpoint(
-    dirpath = str(chkpt_path),
-    filename="Best-T5-{epoch}-{step}-{val_loss:.2f}",
-    save_top_k=1,
-    verbose=True,
-    monitor="val_loss",
-)
+# chkpt_path = "../checkpoints"
+# checkpoint_callback = ModelCheckpoint(
+#     dirpath = str(chkpt_path),
+#     filename="Best-T5-{epoch}-{step}-{val_loss:.2f}",
+#     save_top_k=1,
+#     verbose=True,
+#     monitor="val_loss",
+# )
 
-logger =  logger = WandbLogger(project="text-summarization",
-                             name="",
-                             log_model="all")
+# logger =  logger = WandbLogger(project="text-summarization",
+#                              name="",
+#                              log_model="all")
 
-trainer = pl.Trainer(
-    logger=logger,
-    callbacks=[checkpoint_callback],
-    max_epochs=N_EPOCHS,
-    gpus=-1,
-    log_every_n_steps=log_steps,
-    val_check_interval=valid_steps
-)
+# trainer = pl.Trainer(
+#     logger=logger,
+#     callbacks=[checkpoint_callback],
+#     max_epochs=N_EPOCHS,
+#     gpus=-1,
+#     log_every_n_steps=log_steps,
+#     val_check_interval=valid_steps
+# )
