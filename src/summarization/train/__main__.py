@@ -82,3 +82,5 @@ trainer = pl.Trainer(
     log_every_n_steps=log_steps,
     val_check_interval=valid_steps
 )
+
+trainer.fit(model, data_module)
