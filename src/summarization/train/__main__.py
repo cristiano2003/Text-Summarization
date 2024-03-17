@@ -42,11 +42,6 @@ chkpt_path.mkdir(parents=True, exist_ok=True)
 train_data = datasets.load_dataset("ccdv/cnn_dailymail", "3.0.0", split="train")    #300k
 val_data = datasets.load_dataset("ccdv/cnn_dailymail", "3.0.0", split="validation")
      
-train_data.save_to_disk(train_ds_path/'30_percent_train')
-val_data.save_to_disk(train_ds_path/'30_percent_val')
-
-# train_data = datasets.load_from_disk(train_ds_path/'30_percent_train')
-# val_data = datasets.load_from_disk(train_ds_path/'30_percent_val')
 
 MODEL_NAME = 't5-base'
 
