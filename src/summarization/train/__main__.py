@@ -71,8 +71,8 @@ checkpoint_callback = ModelCheckpoint(
     monitor="val_loss",
 )
 
-logger =  logger = WandbLogger(project="text-summarization",
-                             name="",
+logger = WandbLogger(project="text-summarization",
+                             name="T5",
                              log_model="all")
 
 trainer = pl.Trainer(
