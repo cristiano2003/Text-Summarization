@@ -9,6 +9,7 @@ dependencies = [
     "torchsummary",
     "transformers",
     "datasets",
+    "rouge"
 ]
 
 [project.optional-dependencies]
