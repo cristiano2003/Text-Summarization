@@ -7,7 +7,7 @@ dependencies = [
     "torch",
     "lightning",
     "torchsummary",
-    "transfomers",
+    "transformers",
     "datasets",
 ]
 
