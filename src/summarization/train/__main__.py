@@ -79,7 +79,6 @@ trainer = pl.Trainer(
     logger=logger,
     callbacks=[checkpoint_callback],
     max_epochs=N_EPOCHS,
-    gpus=-1,
     log_every_n_steps=log_steps,
     val_check_interval=valid_steps
 )
