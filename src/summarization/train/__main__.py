@@ -70,7 +70,7 @@ checkpoint_callback = ModelCheckpoint(
     verbose=True,
     monitor="val_loss",
 )
-
+wandb.login(key='53f5746150b2ce7b0552996cb6acc3beec6e487f')
 logger = WandbLogger(project="text-summarization",
                              name="T5",
                              log_model="all")
