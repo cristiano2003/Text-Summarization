@@ -32,7 +32,7 @@ parser.add_argument(
     '--wandb', '-w', default=False, action='store_true',
     help='use wandb or not')
 parser.add_argument(
-    '--wandb_key', '-wk', type=str,
+    '--wandb_key', '-wk', type=str, 
     help='wandb API key')
 
 args = parser.parse_args()
@@ -86,7 +86,7 @@ def train():
         verbose=True,
         monitor="val_loss",
     )
-    wandb.login(key='53f5746150b2ce7b0552996cb6acc3beec6e487f')
+    wandb.login(key=args.wandb_key)
     logger = WandbLogger(project="text-summarization",
                                 name="T5",
                                 log_model="all")
