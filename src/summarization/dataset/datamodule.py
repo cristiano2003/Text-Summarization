@@ -14,7 +14,7 @@ class NewsSummaryDataModule(pl.LightningDataModule):
       batch_size: int = 8,
       text_max_token_len: int = 512,
       summary_max_token_len: int = 128,
-      num_workers: int = 2
+      num_workers: int = 4
 
   ):
     super().__init__()

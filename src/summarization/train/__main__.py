@@ -14,69 +14,95 @@ from transformers import (
 )
 from ..dataset.datamodule import *
 from ..model.model import *
+import argparse
+
+# PARSERS
+parser = argparse.ArgumentParser()
+
+parser.add_argument(
+    '--max_epochs', '-me', type=int, default=10,
+                    help='max epoch')
+parser.add_argument(
+    '--batch_size', '-bs', type=int, default=32,
+                    help='batch size')
+parser.add_argument(
+    '--num_workers', '-nw', type=int, default=4,
+    help='number of workers')
+parser.add_argument(
+    '--wandb', '-w', default=False, action='store_true',
+    help='use wandb or not')
+parser.add_argument(
+    '--wandb_key', '-wk', type=str,
+    help='wandb API key')
+
+args = parser.parse_args()
 
 
-pl.seed_everything(42)
+def train():
+    pl.seed_everything(42)
 
-project_path = Path('../')
-data_path = project_path / 'data'
-data_path.mkdir(parents=True, exist_ok=True)
+    project_path = Path('../')
+    data_path = project_path / 'data'
+    data_path.mkdir(parents=True, exist_ok=True)
 
-#Train Data Path
-train_ds_path = data_path / 'train'
-train_ds_path.mkdir(parents=True, exist_ok=True)
+    #Train Data Path
+    train_ds_path = data_path / 'train'
+    train_ds_path.mkdir(parents=True, exist_ok=True)
 
-#Test Data Path
-test_ds_path = data_path / 'test'
-test_ds_path.mkdir(parents=True, exist_ok=True)
+    #Test Data Path
+    test_ds_path = data_path / 'test'
+    test_ds_path.mkdir(parents=True, exist_ok=True)
 
 
-#Val Data Path
-val_ds_path = data_path / 'val'
-val_ds_path.mkdir(parents=True, exist_ok=True)
+    #Val Data Path
+    val_ds_path = data_path / 'val'
+    val_ds_path.mkdir(parents=True, exist_ok=True)
 
-#Model Checkpoint
-chkpt_path = project_path / "checkpoints"
-chkpt_path.mkdir(parents=True, exist_ok=True)
+    #Model Checkpoint
+    chkpt_path = project_path / "checkpoints"
+    chkpt_path.mkdir(parents=True, exist_ok=True)
 
-train_data = datasets.load_dataset("ccdv/cnn_dailymail", "3.0.0", split="train")    #300k
-val_data = datasets.load_dataset("ccdv/cnn_dailymail", "3.0.0", split="validation")
-     
+    train_data = datasets.load_dataset("ccdv/cnn_dailymail", "3.0.0", split="train")   
+    val_data = datasets.load_dataset("ccdv/cnn_dailymail", "3.0.0", split="validation")
+        
 
-MODEL_NAME = 't5-base'
+    MODEL_NAME = 't5-base'
 
-N_EPOCHS = 2
-BATCH_SIZE = 8
+    N_EPOCHS = args.max_epochs
+    BATCH_SIZE = args.batch_size
 
-learning_rate = 0.0001
+    learning_rate = 0.0001
 
-log_steps = 500
-valid_steps = 500
-tokenizer = T5Tokenizer.from_pretrained(MODEL_NAME, model_max_length=512)
-data_module = NewsSummaryDataModule(train_data, val_data, tokenizer, batch_size=BATCH_SIZE, num_workers=4)
+    tokenizer = T5Tokenizer.from_pretrained(MODEL_NAME, model_max_length=512)
+    data_module = NewsSummaryDataModule(train_data, val_data, tokenizer, batch_size=BATCH_SIZE, num_workers=4)
 
-model = NewsSummaryModel(lr=learning_rate)
+    model = NewsSummaryModel(lr=learning_rate)
 
-chkpt_path = "../checkpoints"
-checkpoint_callback = ModelCheckpoint(
-    dirpath = str(chkpt_path),
-    filename="Best-T5-{epoch}-{step}-{val_loss:.2f}",
-    save_top_k=1,
-    verbose=True,
-    monitor="val_loss",
-)
-# wandb.login(key='53f5746150b2ce7b0552996cb6acc3beec6e487f')
-logger = WandbLogger(project="text-summarization",
-                             name="T5",
-                             log_model="all")
+    chkpt_path = "../checkpoints"
+    checkpoint_callback = ModelCheckpoint(
+        dirpath = str(chkpt_path),
+        filename="Best-T5-{epoch}-{step}-{val_loss:.2f}",
+        save_top_k=1,
+        verbose=True,
+        monitor="val_loss",
+    )
+    wandb.login(key='53f5746150b2ce7b0552996cb6acc3beec6e487f')
+    logger = WandbLogger(project="text-summarization",
+                                name="T5",
+                                log_model="all")
 
-trainer = pl.Trainer(
-    #logger=logger,
-    callbacks=[checkpoint_callback],
-    max_epochs=N_EPOCHS,
-    enable_progress_bar=True,
-        deterministic=False,
-     accumulate_grad_batches=1
-)
+    lr_callback = LearningRateMonitor("step")
 
-trainer.fit(model, data_module)
+    trainer = pl.Trainer(
+        logger=logger,
+        callbacks=[checkpoint_callback, lr_callback],
+        max_epochs=N_EPOCHS,
+        enable_progress_bar=True,
+            deterministic=False,
+        accumulate_grad_batches=1,
+    )
+
+    trainer.fit(model, data_module)
+    
+if __name__ == "__main__":
+    train()
