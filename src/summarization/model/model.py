@@ -4,7 +4,7 @@ from transformers import (
     T5TokenizerFast as T5Tokenizer
 )
 import pytorch_lightning as pl
-
+import torch
 
 class NewsSummaryModel(pl.LightningModule):
   MODEL_BASE = T5ForConditionalGeneration
@@ -75,4 +75,19 @@ class NewsSummaryModel(pl.LightningModule):
     return loss
 
   def configure_optimizers(self):
-      return self.OPTIM(self.parameters(), lr=self.lr)
+      optimizer = torch.optim.AdamW(
+            params=self.parameters(),
+            lr=self.lr
+        )
+      scheduler = {
+            'scheduler': torch.optim.lr_scheduler.OneCycleLR(
+                optimizer=optimizer,
+                max_lr=self.lr,
+                total_steps=self.trainer.estimated_stepping_batches,
+                pct_start=0.1
+            ),
+            'interval': 'step',
+            'frequency': 1
+        }
+      
+      return [optimizer], [scheduler]
