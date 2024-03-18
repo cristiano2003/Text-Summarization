@@ -15,7 +15,7 @@ class NewsSummaryModel(pl.LightningModule):
     ):
     super().__init__()
     
-  
+    
     self.model_name = model_name
     self.model = self.MODEL_BASE.from_pretrained(self.model_name, return_dict=True)
     
