@@ -97,9 +97,7 @@ def train():
         logger=logger,
         callbacks=[checkpoint_callback, lr_callback],
         max_epochs=N_EPOCHS,
-        enable_progress_bar=True,
-            deterministic=False,
-        accumulate_grad_batches=1,
+        enable_progress_bar=True
     )
 
     trainer.fit(model, data_module)
