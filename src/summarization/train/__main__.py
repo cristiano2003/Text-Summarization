@@ -23,7 +23,7 @@ parser.add_argument(
     '--max_epochs', '-me', type=int, default=4,
                     help='max epoch')
 parser.add_argument(
-    '--batch_size', '-bs', type=int, default=32,
+    '--batch_size', '-bs', type=int, default=16,
                     help='batch size')
 parser.add_argument(
     '--num_workers', '-nw', type=int, default=4,
