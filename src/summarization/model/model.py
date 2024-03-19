@@ -77,15 +77,16 @@ class NewsSummaryModel(pl.LightningModule):
     return loss
 
   def configure_optimizers(self):
-      return Adafactor(
-        self.model.parameters(),
-        lr=1e-6,
-        eps = (1e-30, 1e-3),
-        clip_threshold = 1.0,
-        decay_rate = -0.8,
-        beta1 = None,
-        weight_decay = 0.0,
-        relative_step = False,
-        scale_parameter = False,
-        warmup_init = False
-      )
+      # return Adafactor(
+      #   self.model.parameters(),
+      #   lr=1e-6,
+      #   eps = (1e-30, 1e-3),
+      #   clip_threshold = 1.0,
+      #   decay_rate = -0.8,
+      #   beta1 = None,
+      #   weight_decay = 0.0,
+      #   relative_step = False,
+      #   scale_parameter = False,
+      #   warmup_init = False
+      # )
+      return AdamW(self.model.parameters(), lr = 1e-4)
