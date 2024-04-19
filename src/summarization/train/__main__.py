@@ -71,7 +71,7 @@ def train():
     N_EPOCHS = args.max_epochs
     BATCH_SIZE = args.batch_size
 
-    learning_rate = 0.0001
+    learning_rate = 0.00001
 
     tokenizer = T5Tokenizer.from_pretrained(MODEL_NAME, model_max_length=512)
     data_module = NewsSummaryDataModule(train_data, val_data, tokenizer, batch_size=BATCH_SIZE, num_workers=4)
