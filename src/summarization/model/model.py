@@ -6,7 +6,7 @@ from transformers import (
     get_linear_schedule_with_warmup
 )
 import pytorch_lightning as pl
-
+from torchsummary import summary
 
 class NewsSummaryModel(pl.LightningModule):
   MODEL_BASE = T5ForConditionalGeneration
@@ -77,16 +77,16 @@ class NewsSummaryModel(pl.LightningModule):
     return loss
 
   def configure_optimizers(self):
-      # return Adafactor(
-      #   self.model.parameters(),
-      #   lr=1e-6,
-      #   eps = (1e-30, 1e-3),
-      #   clip_threshold = 1.0,
-      #   decay_rate = -0.8,
-      #   beta1 = None,
-      #   weight_decay = 0.0,
-      #   relative_step = False,
-      #   scale_parameter = False,
-      #   warmup_init = False
-      # )
       return AdamW(self.model.parameters(), lr = 1e-4)
+
+
+if __name__ == "__main__":
+
+
+# Load the model and create example input as before
+  model = T5ForConditionalGeneration.from_pretrained('t5-small')
+  tokenizer =  T5Tokenizer.from_pretrained('t5-small')
+  input_ids = tokenizer.encode("This is an example input", return_tensors="pt")
+
+  # Print the model summary
+  summary(model, input_ids)
