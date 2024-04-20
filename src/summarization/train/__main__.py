@@ -23,7 +23,7 @@ parser.add_argument(
     '--max_epochs', '-me', type=int, default=2,
                     help='max epoch')
 parser.add_argument(
-    '--batch_size', '-bs', type=int, default=16,
+    '--batch_size', '-bs', type=int, default=8,
                     help='batch size')
 parser.add_argument(
     '--num_workers', '-nw', type=int, default=4,
@@ -71,12 +71,11 @@ def train():
     N_EPOCHS = args.max_epochs
     BATCH_SIZE = args.batch_size
 
-    learning_rate = 0.00001
 
     tokenizer = T5Tokenizer.from_pretrained(MODEL_NAME, model_max_length=512)
     data_module = NewsSummaryDataModule(train_data, val_data, tokenizer, batch_size=BATCH_SIZE, num_workers=4)
 
-    model = NewsSummaryModel(lr=learning_rate)
+    model = NewsSummaryModel()
 
     chkpt_path = "../checkpoints"
     checkpoint_callback = ModelCheckpoint(
@@ -98,7 +97,8 @@ def train():
         callbacks=[checkpoint_callback, lr_callback],
         max_epochs=N_EPOCHS,
         enable_progress_bar=True,
-        log_every_n_steps=50
+        log_every_n_steps=500,
+        val_check_interval=500
     )
 
     trainer.fit(model, data_module)
