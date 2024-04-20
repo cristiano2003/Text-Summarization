@@ -89,4 +89,4 @@ if __name__ == "__main__":
   input_ids = tokenizer.encode("This is an example input", return_tensors="pt")
 
   # Print the model summary
-  summary(model, input_ids)
+  summary(model, input_ids, device='gpu')
