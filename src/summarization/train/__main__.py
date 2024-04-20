@@ -62,8 +62,8 @@ def train():
     chkpt_path = project_path / "checkpoints"
     chkpt_path.mkdir(parents=True, exist_ok=True)
 
-    train_data = datasets.load_dataset("ccdv/cnn_dailymail", "3.0.0", split="train")   
-    val_data = datasets.load_dataset("ccdv/cnn_dailymail", "3.0.0", split="validation")
+    train_data = datasets.load_dataset("cnn_dailymail", "3.0.0", split="train")   
+    val_data = datasets.load_dataset("cnn_dailymail", "3.0.0", split="validation")
         
 
     MODEL_NAME = 't5-base'
