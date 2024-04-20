@@ -85,15 +85,15 @@ def train():
         verbose=True,
         monitor="val_loss",
     )
-    # wandb.login(key=args.wandb_key)
-    # logger = WandbLogger(project="text-summarization",
-    #                             name="T5",
-    #                             log_model="all")
+    wandb.login(key=args.wandb_key)
+    logger = WandbLogger(project="text-summarization",
+                                name="T5",
+                                log_model="all")
 
     lr_callback = LearningRateMonitor("step")
 
     trainer = pl.Trainer(
-       #  logger=logger,
+        logger=logger,
         callbacks=[checkpoint_callback, lr_callback],
         max_epochs=N_EPOCHS,
         enable_progress_bar=True,
