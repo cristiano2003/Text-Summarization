@@ -13,7 +13,7 @@ class NewsSummaryModel(pl.LightningModule):
   OPTIM = AdamW
   def __init__(self,
                model_name:str='t5-base',
-               lr:int= 0.0001,
+
     ):
     super().__init__()
     
@@ -21,8 +21,6 @@ class NewsSummaryModel(pl.LightningModule):
     self.model_name = model_name
     self.model = self.MODEL_BASE.from_pretrained(self.model_name, return_dict=True)
     
-  
-    self.lr = lr
 
   def forward(self, input_ids, attention_mask, decoder_attention_mask, labels = None):
     output = self.model(
@@ -77,16 +75,18 @@ class NewsSummaryModel(pl.LightningModule):
     return loss
 
   def configure_optimizers(self):
-      return AdamW(self.model.parameters(), lr = 1e-4)
+      return AdamW(self.model.parameters(), lr = 1e-5)
 
 
 if __name__ == "__main__":
 
 
 # Load the model and create example input as before
-  model = T5ForConditionalGeneration.from_pretrained('t5-small')
-  tokenizer =  T5Tokenizer.from_pretrained('t5-small')
-  input_ids = tokenizer.encode("This is an example input", return_tensors="pt")
-
+  model = T5ForConditionalGeneration.from_pretrained('t5-base')
+  tokenizer =  T5Tokenizer.from_pretrained('t5-base')
+  input_ids = tokenizer("This is an example input", return_tensors="pt").input_ids
+  print(input_ids)
+  outputs = model.generate(input_ids)
+  print(outputs)
   # Print the model summary
-  summary(model, input_ids, device='cuda')
+  print(tokenizer.decode(outputs, skip_special_tokens = True))
