@@ -12,7 +12,7 @@ class NewsSummaryModel(pl.LightningModule):
   MODEL_BASE = T5ForConditionalGeneration
   OPTIM = AdamW
   def __init__(self,
-               model_name:str='t5-small',
+               model_name:str='t5-base',
 
     ):
     super().__init__()
