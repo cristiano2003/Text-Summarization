@@ -12,6 +12,7 @@ from transformers import (
     T5ForConditionalGeneration,
     T5TokenizerFast as T5Tokenizer
 )
+from transformers import PegasusForConditionalGeneration, PegasusTokenizer
 from transformers import BartForConditionalGeneration, BartTokenizer
 from ..dataset.datamodule import *
 from ..model.model import *
@@ -20,6 +21,9 @@ import argparse
 # PARSERS
 parser = argparse.ArgumentParser()
 
+parser.add_argument(
+    '--model',  type=str, default="all",
+                    help='model')
 parser.add_argument(
     '--max_epochs', '-me', type=int, default=2,
                     help='max epoch')
@@ -39,7 +43,7 @@ parser.add_argument(
 args = parser.parse_args()
 
 
-def train():
+def train(model_name):
     pl.seed_everything(42)
 
     project_path = Path('../')
@@ -67,29 +71,35 @@ def train():
     val_data = datasets.load_dataset("ccdv/cnn_dailymail", "3.0.0", split="validation")
         
 
-    MODEL_NAME = 't5-base'
-
     N_EPOCHS = args.max_epochs
     BATCH_SIZE = args.batch_size
 
-
-    # tokenizer = BartTokenizer.from_pretrained(MODEL_NAME, model_max_length=512)
-    tokenizer = BartTokenizer.from_pretrained("facebook/bart-large")
+    
+    if model_name == 'T5':
+        tokenizer = T5Tokenizer.from_pretrained("t5-base", model_max_length=512)
+        model = T5ForConditionalGeneration.from_pretrained("google-t5/t5-small")
+    elif model_name == "Bart":
+        tokenizer = BartTokenizer.from_pretrained("facebook/bart-large")
+        model = BartForConditionalGeneration.from_pretrained("facebook/bart-large", forced_bos_token_id=0)
+    else:
+        tokenizer = PegasusTokenizer.from_pretrained("google/pegasus-xsum")
+        model  = PegasusForConditionalGeneration.from_pretrained("google/pegasus-xsum")
+        
     data_module = NewsSummaryDataModule(train_data, val_data, tokenizer, batch_size=BATCH_SIZE, num_workers=4)
 
-    model = NewsSummaryModel()
+    model = NewsSummaryModel(model)
 
     chkpt_path = "../checkpoints"
     checkpoint_callback = ModelCheckpoint(
         dirpath = str(chkpt_path),
-        filename="Best-T5-{epoch}-{step}-{val_loss:.2f}",
+        filename="Best-{args.model}-{epoch}-{step}-{val_loss:.2f}",
         save_top_k=1,
         verbose=True,
         monitor="val_loss",
     )
     wandb.login(key=args.wandb_key)
     logger = WandbLogger(project="text-summarization",
-                                name="T5",
+                                name="summarization",
                                 log_model="all")
 
     lr_callback = LearningRateMonitor("step")
@@ -106,4 +116,11 @@ def train():
     trainer.fit(model, data_module)
     
 if __name__ == "__main__":
-    train()
+    
+    if args.model != "all":
+        train(args.model)
+    else:
+        train("T5")
+        train("Bart")
+        train("Pegasus")
+        

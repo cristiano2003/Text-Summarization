@@ -14,15 +14,12 @@ class NewsSummaryModel(pl.LightningModule):
   MODEL_BASE = BartForConditionalGeneration
   OPTIM = AdamW
   def __init__(self,
-               model_name:str='t5-small',
+               model,
 
     ):
     super().__init__()
-    
-  
-    self.model_name = model_name
     # self.model = self.MODEL_BASE.from_pretrained(self.model_name, return_dict=True)
-    self.model = BartForConditionalGeneration.from_pretrained("facebook/bart-large", forced_bos_token_id=0)
+    self.model = model
 
   def forward(self, input_ids, attention_mask, decoder_attention_mask, labels = None):
       output = self.model(
