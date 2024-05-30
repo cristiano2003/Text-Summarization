@@ -21,8 +21,8 @@ class NewsSummaryModel(pl.LightningModule):
     
   
     self.model_name = model_name
-    self.model = self.MODEL_BASE.from_pretrained(self.model_name, return_dict=True)
-    
+    # self.model = self.MODEL_BASE.from_pretrained(self.model_name, return_dict=True)
+    self.model = BartForConditionalGeneration.from_pretrained("facebook/bart-large", forced_bos_token_id=0)
 
   def forward(self, input_ids, attention_mask, decoder_attention_mask, labels = None):
       output = self.model(
@@ -80,15 +80,15 @@ class NewsSummaryModel(pl.LightningModule):
       return AdamW(self.model.parameters(), lr = 1e-5)
 
 
-if __name__ == "__main__":
+# if __name__ == "__main__":
 
 
-# Load the model and create example input as before
-    model = T5ForConditionalGeneration.from_pretrained('t5-base')
-    tokenizer =  T5Tokenizer.from_pretrained('t5-base')
-    input_ids = tokenizer("This is an example input", return_tensors="pt").input_ids
-    print(input_ids)
-    outputs = model.generate(input_ids)
-    print(outputs)
-    # Print the model summary
-    print(tokenizer.decode(outputs, skip_special_tokens = True))
+# # Load the model and create example input as before
+#     model = T5ForConditionalGeneration.from_pretrained('t5-base')
+#     tokenizer =  T5Tokenizer.from_pretrained('t5-base')
+#     input_ids = tokenizer("This is an example input", return_tensors="pt").input_ids
+#     print(input_ids)
+#     outputs = model.generate(input_ids)
+#     print(outputs)
+#     # Print the model summary
+#     print(tokenizer.decode(outputs, skip_special_tokens = True))
