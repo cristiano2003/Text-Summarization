@@ -73,7 +73,8 @@ def train():
     BATCH_SIZE = args.batch_size
 
 
-    tokenizer = BartTokenizer.from_pretrained(MODEL_NAME, model_max_length=512)
+    # tokenizer = BartTokenizer.from_pretrained(MODEL_NAME, model_max_length=512)
+    tok = BartTokenizer.from_pretrained("facebook/bart-large")
     data_module = NewsSummaryDataModule(train_data, val_data, tokenizer, batch_size=BATCH_SIZE, num_workers=4)
 
     model = NewsSummaryModel()
