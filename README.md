@@ -25,11 +25,11 @@ source ./scripts/setup.sh
 
 ## Train all
 
-'''bash 
+```bash
 
-!python -m summarization.train --model all -me 2 --batch_size 8  
+!python -m summarization.train --model all -me 2 --batch_size 8 
 
-'''
+```
 
 
 
