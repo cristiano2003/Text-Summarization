@@ -12,6 +12,7 @@ from transformers import (
     T5ForConditionalGeneration,
     T5TokenizerFast as T5Tokenizer
 )
+from transformers import BartForConditionalGeneration, BartTokenizer
 from ..dataset.datamodule import *
 from ..model.model import *
 import argparse
@@ -72,7 +73,7 @@ def train():
     BATCH_SIZE = args.batch_size
 
 
-    tokenizer = T5Tokenizer.from_pretrained(MODEL_NAME, model_max_length=512)
+    tokenizer = BartTokenizer.from_pretrained(MODEL_NAME, model_max_length=512)
     data_module = NewsSummaryDataModule(train_data, val_data, tokenizer, batch_size=BATCH_SIZE, num_workers=4)
 
     model = NewsSummaryModel()

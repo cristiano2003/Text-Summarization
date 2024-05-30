@@ -5,11 +5,13 @@ from transformers import (
     T5TokenizerFast as T5Tokenizer,
     get_linear_schedule_with_warmup
 )
+from transformers import BartForConditionalGeneration, BartTokenizer
 import pytorch_lightning as pl
 from torchsummary import summary
 
+
 class NewsSummaryModel(pl.LightningModule):
-  MODEL_BASE = T5ForConditionalGeneration
+  MODEL_BASE = BartForConditionalGeneration
   OPTIM = AdamW
   def __init__(self,
                model_name:str='t5-small',

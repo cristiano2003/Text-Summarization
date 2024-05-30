@@ -5,12 +5,12 @@ from transformers import (
     T5TokenizerFast as T5Tokenizer
 )
 import datasets
-
+from transformers import  BartTokenizer
 
 class NewsSummaryDataset(Dataset):
   def __init__(self,
                data: datasets.arrow_dataset.Dataset,
-               tokenizer: T5Tokenizer,
+               tokenizer: BartTokenizer,
                text_max_token_len: int = 512,
                summary_max_token_len: int = 128
               ):
