@@ -9,7 +9,7 @@
 %cd Text-Summarization
 ```
 
-## Setup, Build Package and download Checkpoint, Dataset and Demo
+## Setup, Build Package and download Checkpoint and Dataset 
 
 ```bash
 source ./scripts/setup.sh
