@@ -20,12 +20,15 @@ source ./scripts/setup.sh
 ```bash
 
 !python -m summarization.train --model T5 -me 2 --batch_size 8  
+
 ```
 
 ## Train all
 
 '''bash 
+
 !python -m summarization.train --model all -me 2 --batch_size 8  
+
 '''
 
 
