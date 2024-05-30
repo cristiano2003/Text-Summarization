@@ -69,7 +69,7 @@ class NewsSummaryModel(pl.LightningModule):
     loss, outputs = self(input_ids=input_ids, 
                          attention_mask=attention_mask,
                          decoder_attention_mask=labels_attention_mask,
-                         labels=labels
+                          labels=labels
                          )
     self.log("test_loss", loss, prog_bar=True, logger=True)
     return loss
