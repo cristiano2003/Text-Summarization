@@ -97,21 +97,32 @@ def train(model_name):
         verbose=True,
         monitor="val_loss",
     )
-    wandb.login(key=args.wandb_key)
-    logger = WandbLogger(project="text-summarization",
+    
+    lr_callback = LearningRateMonitor("step")
+    if args.wandb:    
+        wandb.login(key=args.wandb_key)
+        logger = WandbLogger(project="text-summarization",
                                 name="summarization",
                                 log_model="all")
 
-    lr_callback = LearningRateMonitor("step")
-
-    trainer = pl.Trainer(
-        logger=logger,
-        callbacks=[checkpoint_callback, lr_callback],
-        max_epochs=N_EPOCHS,
-        enable_progress_bar=True,
-        log_every_n_steps=500,
-        val_check_interval=500
-    )
+        trainer = pl.Trainer(
+            logger=logger,
+            callbacks=[checkpoint_callback, lr_callback],
+            max_epochs=N_EPOCHS,
+            enable_progress_bar=True,
+            log_every_n_steps=500,
+            val_check_interval=500
+        )
+    
+    else:
+        trainer = pl.Trainer(
+            callbacks=[checkpoint_callback, lr_callback],
+            max_epochs=N_EPOCHS,
+            enable_progress_bar=True,
+            log_every_n_steps=500,
+            val_check_interval=500
+        )
+        
 
     trainer.fit(model, data_module)
     
