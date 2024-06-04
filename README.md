@@ -12,7 +12,7 @@
 ## Setup, Build Package and download Checkpoint and Dataset 
 
 ```bash
-source ./scripts/setup.sh
+!source ./scripts/setup.sh
 ```
 
 ## Train
