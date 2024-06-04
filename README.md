@@ -19,7 +19,7 @@
 
 ```bash
 
-!python -m summarization.train --model T5 -me 2 --batch_size 8  -w -wk {wandb_key}
+!python -m summarization.train --model "T5" -me 2 --batch_size 8  -w -wk {wandb_key}
 
 ```
 
@@ -27,7 +27,7 @@
 
 ```bash
 
-!python -m summarization.train --model all -me 2 --batch_size 8 -w -wk {wandb_key}
+!python -m summarization.train --model "all" -me 2 --batch_size 8 -w -wk {wandb_key}
 
 ```
 
