@@ -75,10 +75,10 @@ def train(model_name):
     BATCH_SIZE = args.batch_size
 
     
-    if model_name == 'T5':
+    if model_name == 't5':
         tokenizer = T5Tokenizer.from_pretrained("t5-base", model_max_length=512)
         model = T5ForConditionalGeneration.from_pretrained("google-t5/t5-small")
-    elif model_name == "Bart":
+    elif model_name == "bart":
         tokenizer = BartTokenizer.from_pretrained("facebook/bart-large")
         model = BartForConditionalGeneration.from_pretrained("facebook/bart-large", forced_bos_token_id=0)
     else:
@@ -131,7 +131,7 @@ if __name__ == "__main__":
     if args.model != "all":
         train(args.model)
     else:
-        train("T5")
-        train("Bart")
-        train("Pegasus")
+        train("t5")
+        train("bart")
+        train("pegasus")
         
