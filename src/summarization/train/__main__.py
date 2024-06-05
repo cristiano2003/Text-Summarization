@@ -99,7 +99,7 @@ def train(model_name):
     )
     
     lr_callback = LearningRateMonitor("step")
-    name = f"{model_name}-{args.max_epochs}-{args.batch_size}-{args.lr}"
+    name = f"{model_name}-{args.max_epochs}-{args.batch_size}"
     if args.wandb:    
         wandb.login(key=args.wandb_key)
         logger = WandbLogger(project="text-summarization",
