@@ -5,7 +5,7 @@ from transformers import (
     T5TokenizerFast as T5Tokenizer,
     get_linear_schedule_with_warmup
 )
-from transformers import BartForConditionalGeneration, BartTokenizer
+
 import pytorch_lightning as pl
 from torchsummary import summary
 
