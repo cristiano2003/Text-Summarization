@@ -25,7 +25,7 @@ parser.add_argument(
     '--model',  type=str, default="all",
                     help='model')
 parser.add_argument(
-    '--max_epochs', '-me', type=int, default=2,
+    '--max_epochs', '-me', type=int, default=3,
                     help='max epoch')
 parser.add_argument(
     '--batch_size', '-bs', type=int, default=8,
