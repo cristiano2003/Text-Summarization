@@ -80,7 +80,7 @@ def train(model_name):
         model = T5ForConditionalGeneration.from_pretrained("google-t5/t5-small")
     elif model_name == "bart":
         tokenizer = BartTokenizer.from_pretrained("facebook/bart-base")
-        model = BartForConditionalGeneration.from_pretrained("facebook/bart-base", forced_bos_token_id=0)
+        model = BartForConditionalGeneration.from_pretrained("facebook/bart-small", forced_bos_token_id=0)
     else:
         tokenizer = PegasusTokenizer.from_pretrained("google/pegasus-cnn_dailymail")
         model  = PegasusForConditionalGeneration.from_pretrained("google/pegasus-cnn_dailymail")
