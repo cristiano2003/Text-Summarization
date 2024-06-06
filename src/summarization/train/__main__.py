@@ -82,8 +82,8 @@ def train(model_name):
         tokenizer = BartTokenizer.from_pretrained("facebook/bart-base")
         model = BartForConditionalGeneration.from_pretrained("facebook/bart-small", forced_bos_token_id=0)
     else:
-        tokenizer = PegasusTokenizer.from_pretrained("google/pegasus-cnn_dailymail")
-        model  = PegasusForConditionalGeneration.from_pretrained("google/pegasus-cnn_dailymail")
+        tokenizer = PegasusTokenizer.from_pretrained("google/pegasus-multi_news")
+        model  = PegasusForConditionalGeneration.from_pretrained("google/pegasus-multi_news")
         
     data_module = NewsSummaryDataModule(train_data, val_data, tokenizer, batch_size=BATCH_SIZE, num_workers=4)
 
