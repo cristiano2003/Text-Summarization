@@ -25,6 +25,9 @@ parser.add_argument(
     '--model',  type=str, default="all",
                     help='model')
 parser.add_argument(
+    '--model_version', 'mv', type=str, default="base",
+                    help='model version')
+parser.add_argument(
     '--max_epochs', '-me', type=int, default=3,
                     help='max epoch')
 parser.add_argument(
@@ -74,16 +77,24 @@ def train(model_name):
     N_EPOCHS = args.max_epochs
     BATCH_SIZE = args.batch_size
 
-    
-    if model_name == 't5':
-        tokenizer = T5Tokenizer.from_pretrained("t5-base", model_max_length=512)
-        model = T5ForConditionalGeneration.from_pretrained("google-t5/t5-small")
-    elif model_name == "bart":
-        tokenizer = BartTokenizer.from_pretrained("facebook/bart-base")
-        model = BartForConditionalGeneration.from_pretrained("facebook/bart-small", forced_bos_token_id=0)
+    if args.model_version == "small":
+        if model_name == 't5':
+            tokenizer = T5Tokenizer.from_pretrained(f"google-t5/t5-small", model_max_length=512)
+            model = T5ForConditionalGeneration.from_pretrained(f"google-t5/t5-small")
+        else:
+            tokenizer = T5Tokenizer.from_pretrained(f"facebook/bart-small", model_max_length=512)
+            model = T5ForConditionalGeneration.from_pretrained(f"facebook/bart-small")
+            
     else:
-        tokenizer = PegasusTokenizer.from_pretrained("google/pegasus-multi_news")
-        model  = PegasusForConditionalGeneration.from_pretrained("google/pegasus-multi_news")
+        if model_name == 't5':
+            tokenizer = T5Tokenizer.from_pretrained(f"google-t5/t5-base", model_max_length=512)
+            model = T5ForConditionalGeneration.from_pretrained(f"google-t5/t5-base")
+        else:
+            tokenizer = T5Tokenizer.from_pretrained(f"facebook/bart-base", model_max_length=512)
+            model = T5ForConditionalGeneration.from_pretrained(f"facebook/bart-base")
+    
+    
+    
         
     data_module = NewsSummaryDataModule(train_data, val_data, tokenizer, batch_size=BATCH_SIZE, num_workers=4)
 
