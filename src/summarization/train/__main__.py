@@ -25,7 +25,7 @@ parser.add_argument(
     '--model',  type=str, default="all",
                     help='model')
 parser.add_argument(
-    '--model_version', 'mv', type=str, default="base",
+    '--model_version', '-mv', type=str, default="base",
                     help='model version')
 parser.add_argument(
     '--max_epochs', '-me', type=int, default=3,
