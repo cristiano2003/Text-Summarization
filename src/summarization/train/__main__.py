@@ -82,8 +82,8 @@ def train(model_name):
             tokenizer = T5Tokenizer.from_pretrained("google-t5/t5-small", model_max_length=512)
             model = T5ForConditionalGeneration.from_pretrained("google-t5/t5-small")
         else:
-            tokenizer = BartTokenizer.from_pretrained("lucadiliello/bart-small", model_max_length=512)
-            model = BartForConditionalGeneration.from_pretrained("lucadiliello/bart-small")
+            tokenizer = BartTokenizer.from_pretrained("mk9165/mk-bart-small-v5", model_max_length=512)
+            model = BartForConditionalGeneration.from_pretrained("mk9165/mk-bart-small-v5")
             
     else:
         if model_name == 't5':
