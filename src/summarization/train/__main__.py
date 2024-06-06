@@ -79,19 +79,19 @@ def train(model_name):
 
     if args.model_version == "small":
         if model_name == 't5':
-            tokenizer = T5Tokenizer.from_pretrained(f"google-t5/t5-small", model_max_length=512)
-            model = T5ForConditionalGeneration.from_pretrained(f"google-t5/t5-small")
+            tokenizer = T5Tokenizer.from_pretrained("google-t5/t5-small", model_max_length=512)
+            model = T5ForConditionalGeneration.from_pretrained("google-t5/t5-small")
         else:
-            tokenizer = T5Tokenizer.from_pretrained(f"facebook/bart-small", model_max_length=512)
-            model = T5ForConditionalGeneration.from_pretrained(f"facebook/bart-small")
+            tokenizer = T5Tokenizer.from_pretrained("lucadiliello/bart-small", model_max_length=512)
+            model = T5ForConditionalGeneration.from_pretrained("lucadiliello/bart-small")
             
     else:
         if model_name == 't5':
-            tokenizer = T5Tokenizer.from_pretrained(f"google-t5/t5-base", model_max_length=512)
-            model = T5ForConditionalGeneration.from_pretrained(f"google-t5/t5-base")
+            tokenizer = T5Tokenizer.from_pretrained("google-t5/t5-base", model_max_length=512)
+            model = T5ForConditionalGeneration.from_pretrained("google-t5/t5-base")
         else:
-            tokenizer = T5Tokenizer.from_pretrained(f"facebook/bart-base", model_max_length=512)
-            model = T5ForConditionalGeneration.from_pretrained(f"facebook/bart-base")
+            tokenizer = T5Tokenizer.from_pretrained("facebook/bart-base", model_max_length=512)
+            model = T5ForConditionalGeneration.from_pretrained("facebook/bart-base")
     
     
     
