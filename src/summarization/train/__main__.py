@@ -79,7 +79,7 @@ def train(model_name):
         tokenizer = T5Tokenizer.from_pretrained("t5-base", model_max_length=512)
         model = T5ForConditionalGeneration.from_pretrained("google-t5/t5-small")
     elif model_name == "bart":
-        tokenizer = BartTokenizer.from_pretrained("facebook/bart-large")
+        tokenizer = BartTokenizer.from_pretrained("facebook/bart-base")
         model = BartForConditionalGeneration.from_pretrained("facebook/bart-large", forced_bos_token_id=0)
     else:
         tokenizer = PegasusTokenizer.from_pretrained("google/pegasus-xsum")
