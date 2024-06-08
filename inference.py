@@ -72,7 +72,7 @@ class ModelEvaluation:
 trained_model = NewsSummaryModel.load_from_checkpoint(
     # "/content/drive/MyDrive/SMU_MITB_NLP/project/data/other/epoch=1-step=990.ckpt"
     # trainer.checkpoint_callback.best_model_path
-        checkpoint_path="Best-T5-epoch=0-step=17500-val_loss=1.54.ckpt"
+        checkpoint_path="t5.ckpt"
 )
 trained_model.freeze()
 
