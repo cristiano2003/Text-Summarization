@@ -4,7 +4,7 @@ import torch
 
 class ModelEvaluation:
     ROUGE = datasets.load_metric("rouge")
-    DEVICE = 'cuda' if torch.cuda.is_available() else 'cpu'
+    DEVICE = 'cpu'
     def __init__(self,
                model: NewsSummaryModel,
                tokenizer: T5Tokenizer,
@@ -69,16 +69,15 @@ class ModelEvaluation:
         return rouge_output
     
     
-trained_model = NewsSummaryModel.load_from_checkpoint(
-    # "/content/drive/MyDrive/SMU_MITB_NLP/project/data/other/epoch=1-step=990.ckpt"
-    # trainer.checkpoint_callback.best_model_path
-        checkpoint_path="t5.ckpt"
-)
-trained_model.freeze()
+checkpoint = torch.load("t5.ckpt", map_location=torch.device('cpu') )
+
+model = T5ForConditionalGeneration.from_pretrained("google-t5/t5-small")
+t5_model = NewsSummaryModel.load_from_checkpoint("t5.ckpt", model = model)
+t5_model.freeze()
 
 tokenizer = T5Tokenizer.from_pretrained('t5-base', model_max_length=512)
 
-model_eval = ModelEvaluation(trained_model, tokenizer)
+model_eval = ModelEvaluation(t5_model, tokenizer)
 
 test_data = datasets.load_dataset("ccdv/cnn_dailymail", "3.0.0", split="test")
 
