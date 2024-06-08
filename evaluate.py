@@ -11,7 +11,7 @@ from transformers import (
 
 class ModelEvaluation:
     ROUGE = datasets.load_metric("rouge")
-    DEVICE = 'cpu'
+    DEVICE = "cuda"
     def __init__(self,
                model: NewsSummaryModel,
                tokenizer: T5Tokenizer,

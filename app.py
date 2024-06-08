@@ -24,7 +24,7 @@ bart_model = NewsSummaryModel.load_from_checkpoint("bart.ckpt", model = model)
 
 # test_data = datasets.load_dataset("ccdv/cnn_dailymail", "3.0.0", split="test")
 
-text = test_data[0]['article']
+# text = test_data[0]['article']
 
 def summarizeText(text, model_name="T5"):
     if model_name == "T5":
