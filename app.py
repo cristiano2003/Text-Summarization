@@ -22,7 +22,7 @@ bart_tokenizer = BartTokenizer.from_pretrained("lucadiliello/bart-small", model_
 model = BartForConditionalGeneration.from_pretrained("lucadiliello/bart-small")
 bart_model = NewsSummaryModel.load_from_checkpoint("bart.ckpt", model = model)
 
-test_data = datasets.load_dataset("ccdv/cnn_dailymail", "3.0.0", split="test")
+# test_data = datasets.load_dataset("ccdv/cnn_dailymail", "3.0.0", split="test")
 
 text = test_data[0]['article']
 

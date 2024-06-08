@@ -1,6 +1,13 @@
 from src.summarization.model.model import *
 import datasets
 import torch 
+from transformers import (
+    AdamW,
+    T5ForConditionalGeneration,
+    T5TokenizerFast as T5Tokenizer,
+    BartForConditionalGeneration,
+    BartTokenizerFast as BartTokenizer
+)
 
 class ModelEvaluation:
     ROUGE = datasets.load_metric("rouge")
@@ -74,14 +81,21 @@ checkpoint = torch.load("t5.ckpt", map_location=torch.device('cpu') )
 model = T5ForConditionalGeneration.from_pretrained("google-t5/t5-small")
 t5_model = NewsSummaryModel.load_from_checkpoint("t5.ckpt", model = model)
 t5_model.freeze()
+t5_tokenizer = T5Tokenizer.from_pretrained('t5-small', model_max_length=512)
 
-tokenizer = T5Tokenizer.from_pretrained('t5-base', model_max_length=512)
-
-model_eval = ModelEvaluation(t5_model, tokenizer)
+bart_tokenizer = BartTokenizer.from_pretrained("lucadiliello/bart-small", model_max_length=512)
+model = BartForConditionalGeneration.from_pretrained("lucadiliello/bart-small")
+bart_model = NewsSummaryModel.load_from_checkpoint("bart.ckpt", model = model)
+bart_model.freeze()
 
 test_data = datasets.load_dataset("ccdv/cnn_dailymail", "3.0.0", split="test")
 
-rouge_output = model_eval.evaluate(test_data)
+t5_eval = ModelEvaluation(t5_model, t5_tokenizer)
+t5_rouge_output = t5_eval.evaluate(test_data)
+t5_rouge_output_mid = {k: v.mid for k,v  in t5_rouge_output.items()}
+print(t5_rouge_output_mid)
 
-rouge_output_mid = {k: v.mid for k,v  in rouge_output.items()}
-print(rouge_output_mid)
+bart_eval = ModelEvaluation(bart_model, bart_tokenizer)
+bart_rouge_output = bart_eval.evaluate(test_data)
+bart_rouge_output_mid = {k: v.mid for k,v  in bart_rouge_output.items()}
+print(bart_rouge_output_mid)
