@@ -103,7 +103,7 @@ def train(model_name):
     chkpt_path = "../checkpoints"
     checkpoint_callback = ModelCheckpoint(
         dirpath = str(chkpt_path),
-        filename="Best-{model_name}-{epoch}-{step}-{val_loss:.2f}",
+        filename="{model_name}",
         save_top_k=1,
         verbose=True,
         monitor="val_loss",
