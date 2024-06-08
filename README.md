@@ -1,7 +1,7 @@
 # Abstractive Text Summarization
 
-
-
+## Result
+![Alt text]("imgs/result.png")
 ## Clone
 
 ```bash
