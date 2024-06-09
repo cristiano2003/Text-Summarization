@@ -11,7 +11,7 @@ dependencies = [
     "datasets",
     "rouge_score",
     "rouge",
-    gradio
+    "gradio
 ]
 
 [project.optional-dependencies]
