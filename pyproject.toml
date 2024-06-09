@@ -10,7 +10,8 @@ dependencies = [
     "transformers",
     "datasets",
     "rouge_score",
-    "rouge"
+    "rouge",
+    gradio
 ]
 
 [project.optional-dependencies]

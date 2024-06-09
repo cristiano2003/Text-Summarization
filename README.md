@@ -12,7 +12,7 @@
 ## Setup, Build Package and download Checkpoint and Dataset 
 
 ```bash
-!source script/setup.sh
+!source scripts/setup.sh
 ```
 
 ## Train
@@ -28,6 +28,14 @@
 ```bash
 
 !python -m summarization.train --model "all" -me 3 --batch_size 8 -w -wk {wandb_key}
+
+```
+
+## Demo
+
+```bash
+
+!python app.py
 
 ```
 
