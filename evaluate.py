@@ -80,18 +80,19 @@ class ModelEvaluation:
     
 checkpoint = torch.load("t5.ckpt", map_location=torch.device('cpu') )
 
-t5_model = T5ForConditionalGeneration.from_pretrained("google-t5/t5-base")
-# t5_model = NewsSummaryModel.load_from_checkpoint("t5.ckpt", model = model)
+model = T5ForConditionalGeneration.from_pretrained("google-t5/t5-base")
+t5_model = NewsSummaryModel(model = model)
 t5_model.freeze()
 t5_tokenizer = T5Tokenizer.from_pretrained("google-t5/t5-base", model_max_length=512)
 
 bart_tokenizer = BartTokenizer.from_pretrained("facebook/bart-base", model_max_length=512)
 bart_model = BartForConditionalGeneration.from_pretrained("facebook/bart-base")
-# bart_model = NewsSummaryModel.load_from_checkpoint("bart.ckpt", model = model)
+bart_model = NewsSummaryModel(model = model)
 bart_model.freeze()
 
 pegasus_tokenizer = PegasusTokenizer.from_pretrained("google/pegasus-cnn_dailymail", model_max_length=512)
-pegasus_model = PegasusForConditionalGeneration.from_pretrained("google/pegasus-cnn_dailymail")
+model = PegasusForConditionalGeneration.from_pretrained("google/pegasus-cnn_dailymail")
+pegasus_model = NewsSummaryModel(model=model)
 bart_model.freeze()
 
 
