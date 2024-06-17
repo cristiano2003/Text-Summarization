@@ -98,17 +98,17 @@ bart_model.freeze()
 
 test_data = datasets.load_dataset("ccdv/cnn_dailymail", "3.0.0", split="test")
 
-t5_eval = ModelEvaluation(t5_model, t5_tokenizer)
-t5_rouge_output = t5_eval.evaluate(test_data)
-t5_rouge_output_mid = {k: v.mid for k,v  in t5_rouge_output.items()}
-print(t5_rouge_output_mid)
+# t5_eval = ModelEvaluation(t5_model, t5_tokenizer)
+# t5_rouge_output = t5_eval.evaluate(test_data)
+# t5_rouge_output_mid = {k: v.mid for k,v  in t5_rouge_output.items()}
+# print(t5_rouge_output_mid)
 
-bart_eval = ModelEvaluation(bart_model, bart_tokenizer)
-bart_rouge_output = bart_eval.evaluate(test_data)
-bart_rouge_output_mid = {k: v.mid for k,v  in bart_rouge_output.items()}
-print(bart_rouge_output_mid)
+# bart_eval = ModelEvaluation(bart_model, bart_tokenizer)
+# bart_rouge_output = bart_eval.evaluate(test_data)
+# bart_rouge_output_mid = {k: v.mid for k,v  in bart_rouge_output.items()}
+# print(bart_rouge_output_mid)
 
-pegasus_eval = ModelEvaluation(bart_model, bart_tokenizer)
+pegasus_eval = ModelEvaluation(pegasus_model, pegasus_tokenizer)
 pegasus_rouge_output = pegasus_eval.evaluate(test_data)
-pegasus_rouge_output_mid = {k: v.mid for k,v  in bart_rouge_output.items()}
-print(bart_rouge_output_mid)
+pegasus_rouge_output_mid = {k: v.mid for k,v  in pegasus_rouge_output.items()}
+print(pegasus_rouge_output_mid)
