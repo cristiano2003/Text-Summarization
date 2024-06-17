@@ -8,6 +8,8 @@ from transformers import (
     BartForConditionalGeneration,
     BartTokenizerFast as BartTokenizer
 )
+from transformers import PegasusForConditionalGeneration, PegasusTokenizer
+
 
 class ModelEvaluation:
     ROUGE = datasets.load_metric("rouge")
@@ -78,15 +80,20 @@ class ModelEvaluation:
     
 checkpoint = torch.load("t5.ckpt", map_location=torch.device('cpu') )
 
-model = T5ForConditionalGeneration.from_pretrained("google-t5/t5-small")
-t5_model = NewsSummaryModel.load_from_checkpoint("t5.ckpt", model = model)
+t5_model = T5ForConditionalGeneration.from_pretrained("google-t5/t5-base")
+# t5_model = NewsSummaryModel.load_from_checkpoint("t5.ckpt", model = model)
 t5_model.freeze()
-t5_tokenizer = T5Tokenizer.from_pretrained('t5-small', model_max_length=512)
+t5_tokenizer = T5Tokenizer.from_pretrained("google-t5/t5-base", model_max_length=512)
 
-bart_tokenizer = BartTokenizer.from_pretrained("lucadiliello/bart-small", model_max_length=512)
-model = BartForConditionalGeneration.from_pretrained("lucadiliello/bart-small")
-bart_model = NewsSummaryModel.load_from_checkpoint("bart.ckpt", model = model)
+bart_tokenizer = BartTokenizer.from_pretrained("facebook/bart-base", model_max_length=512)
+bart_model = BartForConditionalGeneration.from_pretrained("facebook/bart-base")
+# bart_model = NewsSummaryModel.load_from_checkpoint("bart.ckpt", model = model)
 bart_model.freeze()
+
+pegasus_tokenizer = PegasusTokenizer.from_pretrained("google/pegasus-cnn_dailymail", model_max_length=512)
+pegasus_model = PegasusForConditionalGeneration.from_pretrained("google/pegasus-cnn_dailymail")
+bart_model.freeze()
+
 
 test_data = datasets.load_dataset("ccdv/cnn_dailymail", "3.0.0", split="test")
 
@@ -98,4 +105,9 @@ print(t5_rouge_output_mid)
 bart_eval = ModelEvaluation(bart_model, bart_tokenizer)
 bart_rouge_output = bart_eval.evaluate(test_data)
 bart_rouge_output_mid = {k: v.mid for k,v  in bart_rouge_output.items()}
+print(bart_rouge_output_mid)
+
+pegasus_eval = ModelEvaluation(bart_model, bart_tokenizer)
+pegasus_rouge_output = pegasus_eval.evaluate(test_data)
+pegasus_rouge_output_mid = {k: v.mid for k,v  in bart_rouge_output.items()}
 print(bart_rouge_output_mid)
