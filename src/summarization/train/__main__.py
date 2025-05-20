@@ -88,7 +88,7 @@ def train(model_name):
     
     
         
-    data_module = NewsSummaryDataModule(train_data, val_data, tokenizer, batch_size=BATCH_SIZE, num_workers=4)
+    data_module = NewsSummaryDataModule(train_data, val_data, tokenizer, batch_size=BATCH_SIZE, num_workers=8)
 
     model = NewsSummaryModel(model)
 
