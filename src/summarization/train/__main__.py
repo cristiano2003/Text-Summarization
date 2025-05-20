@@ -8,7 +8,7 @@ from pathlib import Path
 from rouge import Rouge
 import datasets
 from transformers import (
-    AutoTokenizer, AutoModelForSeq2SeqLM,
+    AutoTokenizer, AutoModelForSeq2SeqLM, AutoModelForCausalLM
     AdamW,
     T5ForConditionalGeneration,
     T5TokenizerFast as T5Tokenizer
@@ -81,7 +81,7 @@ def train(model_name):
 
 
     tokenizer = AutoTokenizer.from_pretrained("vinai/vinai-translate-vi2en", model_max_length=128)
-    model = AutoModelForSeq2SeqLM.from_pretrained("vinai/vinai-translate-vi2en")
+    model = AutoModelForCausalLM.from_pretrained("vinai/vinai-translate-vi2en")
 
    
     
