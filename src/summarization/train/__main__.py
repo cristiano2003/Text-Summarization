@@ -71,8 +71,8 @@ def train(model_name):
     chkpt_path = project_path / "checkpoints"
     chkpt_path.mkdir(parents=True, exist_ok=True)
 
-    train_data = datasets.load_dataset("ndtran/t5-small_cnn-daily-mail", split="train")   
-    val_data = datasets.load_dataset("ndtran/t5-small_cnn-daily-mail", split="validation")
+    train_data = datasets.load_dataset("nhuvo/MedEV", split="validation")   
+    val_data = datasets.load_dataset("nhuvo/MedEV", split="test")
         
 
     N_EPOCHS = args.max_epochs
