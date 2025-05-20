@@ -2,13 +2,13 @@ from src.summarization.model.model import *
 import datasets
 import torch 
 from transformers import (
-
+    AdamW,
     T5ForConditionalGeneration,
     T5TokenizerFast as T5Tokenizer,
     BartForConditionalGeneration,
     BartTokenizerFast as BartTokenizer
 )
-from transformers.optimization import AdamW
+
 from transformers import PegasusForConditionalGeneration, PegasusTokenizer
 
 

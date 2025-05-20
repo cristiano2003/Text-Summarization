@@ -1,10 +1,9 @@
 from torch.utils.data import Dataset
 from transformers import (
-
+    AdamW,
     T5ForConditionalGeneration,
     T5TokenizerFast as T5Tokenizer
 )
-from transformers.optimization import AdamW
 import datasets
 from transformers import  BartTokenizer
 

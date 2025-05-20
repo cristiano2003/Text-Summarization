@@ -1,11 +1,10 @@
 from transformers import (
-    
+    AdamW,
     Adafactor,
     T5ForConditionalGeneration,
     T5TokenizerFast as T5Tokenizer,
     get_linear_schedule_with_warmup
 )
-from transformers.optimization import AdamW
 
 import pytorch_lightning as pl
 from torchsummary import summary
