@@ -95,4 +95,5 @@ class NewsSummaryModel(pl.LightningModule):
 
     def setup(self, stage=None):
         # Enable mixed precision training
-        self.trainer.precision = "16-mixed" if torch.cuda.is_available() else "32-true"
+        # self.trainer.precision = "16-mixed" if torch.cuda.is_available() else "32-true"
+        pass
