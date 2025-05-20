@@ -34,7 +34,7 @@ class NewsSummaryDataset(Dataset):
 
   def __getitem__(self, index: int):
     data_row = self.data[index]
-    text, summary = data_row['article'], data_row['highlights']
+    text, summary = data_row['en']['text'], data_row['vi']['text']
     
     text_encoding = self.encoding_plus(text, self.text_max_token_len)
     summary_encoding = self.encoding_plus(summary, self.summary_max_token_len)
