@@ -7,7 +7,7 @@ from transformers import (
 import pytorch_lightning as pl
 from torchsummary import summary
 import torch
-f
+
 class NewsSummaryModel(pl.LightningModule):
     def __init__(self, model, learning_rate=1e-4, accumulate_grad_batches=4):
         super().__init__()
