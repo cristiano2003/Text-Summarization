@@ -8,10 +8,11 @@ from pathlib import Path
 from rouge import Rouge
 import datasets
 from transformers import (
-    AdamW,
+
     T5ForConditionalGeneration,
     T5TokenizerFast as T5Tokenizer
 )
+from transformers.optimization import AdamW
 from transformers import PegasusForConditionalGeneration, PegasusTokenizer
 from transformers import BartForConditionalGeneration, BartTokenizer
 from ..dataset.datamodule import *

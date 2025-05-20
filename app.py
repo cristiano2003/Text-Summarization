@@ -3,12 +3,13 @@ import torch
 import datasets
 import gradio as gr
 from transformers import (
-    AdamW,
+
     T5ForConditionalGeneration,
     T5TokenizerFast as T5Tokenizer,
     BartForConditionalGeneration,
     BartTokenizerFast as BartTokenizer
 )
+from transformers.optimization import AdamW
 
 checkpoint = torch.load("bart.ckpt", map_location=torch.device('cpu') )
 
