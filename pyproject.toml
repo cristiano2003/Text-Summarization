@@ -7,7 +7,7 @@ dependencies = [
     "torch",
     "lightning",
     "torchsummary",
-    "transformers=4.5.0",
+    "transformers",
     "datasets",
     "rouge_score",
     "rouge",
