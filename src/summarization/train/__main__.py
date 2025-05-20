@@ -78,21 +78,11 @@ def train(model_name):
     N_EPOCHS = args.max_epochs
     BATCH_SIZE = args.batch_size
 
-    if args.model_version == "small":
-        if model_name == 't5':
-            tokenizer = T5Tokenizer.from_pretrained("google-t5/t5-small", model_max_length=512)
-            model = T5ForConditionalGeneration.from_pretrained("google-t5/t5-small")
-        else:
-            tokenizer = BartTokenizer.from_pretrained("lucadiliello/bart-small", model_max_length=512)
-            model = BartForConditionalGeneration.from_pretrained("lucadiliello/bart-small")
-            
-    else:
-        if model_name == 't5':
-            tokenizer = T5Tokenizer.from_pretrained("google-t5/t5-base", model_max_length=512)
-            model = T5ForConditionalGeneration.from_pretrained("google-t5/t5-base")
-        else:
-            tokenizer = BartTokenizer.from_pretrained("facebook/bart-base", model_max_length=512)
-            model = BartForConditionalGeneration.from_pretrained("facebook/bart-base")
+
+    tokenizer = T5Tokenizer.from_pretrained("vinai/vinai-translate-vi2en", model_max_length=512)
+    model = T5ForConditionalGeneration.from_pretrained("vinai/vinai-translate-vi2en")
+
+   
     
     
     
