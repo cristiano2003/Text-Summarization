@@ -80,8 +80,8 @@ def train(model_name):
     BATCH_SIZE = args.batch_size
 
 
-    tokenizer = AutoTokenizer.from_pretrained("vinai/vinai-translate-vi2en", model_max_length=256)
-    model = AutoModelForSeq2SeqLM.from_pretrained("vinai/vinai-translate-vi2en")
+    tokenizer = AutoTokenizer.from_pretrained("vinai/vinai-translate-vi2en", model_max_length=128)
+    model = AutoModelForSeq2SeqLM.from_pretrained("vinai/vinai-translate-vi2en", model_max_length=128)
 
    
     
