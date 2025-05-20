@@ -81,7 +81,7 @@ def train(model_name):
 
 
     tokenizer = AutoTokenizer.from_pretrained("vinai/vinai-translate-vi2en", model_max_length=128)
-    model = AutoModelForCausalLM.from_pretrained("vinai/vinai-translate-vi2en")
+    model = AutoModelForSeq2SeqLM.from_pretrained("vinai/vinai-translate-vi2en")
 
    
     
