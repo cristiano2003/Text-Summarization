@@ -8,6 +8,7 @@ from pathlib import Path
 from rouge import Rouge
 import datasets
 from transformers import (
+    AutoTokenizer, AutoModelForSeq2SeqLM,
     AdamW,
     T5ForConditionalGeneration,
     T5TokenizerFast as T5Tokenizer
@@ -79,8 +80,8 @@ def train(model_name):
     BATCH_SIZE = args.batch_size
 
 
-    tokenizer = T5Tokenizer.from_pretrained("vinai/vinai-translate-vi2en", model_max_length=512)
-    model = T5ForConditionalGeneration.from_pretrained("vinai/vinai-translate-vi2en")
+    tokenizer = AutoTokenizer.from_pretrained("vinai/vinai-translate-vi2en", model_max_length=512)
+    model = AutoModelForSeq2SeqLM.from_pretrained("vinai/vinai-translate-vi2en")
 
    
     
