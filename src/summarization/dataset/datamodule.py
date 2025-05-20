@@ -12,7 +12,7 @@ class NewsSummaryDataModule(pl.LightningDataModule):
       val_df: datasets.arrow_dataset.Dataset,
       tokenizer: T5Tokenizer,
       batch_size: int = 8,
-      text_max_token_len: int = 512,
+      text_max_token_len: int = 128,
       summary_max_token_len: int = 128,
       num_workers: int = 4
 
