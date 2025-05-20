@@ -133,7 +133,7 @@ def train(model_name):
             max_epochs=N_EPOCHS,
             enable_progress_bar=True,
             log_every_n_steps=500,
-            #z val_dataal_check_interval=10
+            val_dataal_check_interval=100
         )
         
 
