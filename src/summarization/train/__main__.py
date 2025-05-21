@@ -95,17 +95,17 @@ def train(model_name):
     chkpt_path = "../checkpoints"
     checkpoint_callback = ModelCheckpoint(
         dirpath = str(chkpt_path),
-        filename="{model_name}",
+        filename=f"{model_name}",
         save_top_k=1,
         verbose=True,
         monitor="val_loss",
     )
     
     lr_callback = LearningRateMonitor("step")
-    name = f"{model_name}-{args.max_epochs}-{args.batch_size}"
+    name = f"{model_name}" # -{args.max_epochs}-{args.batch_size}"
     if args.wandb:    
         wandb.login(key=args.wandb_key)
-        logger = WandbLogger(project="text-summarization",
+        logger = WandbLogger(project="vinai-translate",
                                 name=name,
                                 log_model="all")
 
@@ -114,8 +114,9 @@ def train(model_name):
             callbacks=[checkpoint_callback, lr_callback],
             max_epochs=N_EPOCHS,
             enable_progress_bar=True,
-            log_every_n_steps=500, 
-            val_check_interval=1000
+            log_every_n_steps=2000, 
+            # val_check_interval=1000,
+            accumulate_grad_batches=8
         )
     
     else:
