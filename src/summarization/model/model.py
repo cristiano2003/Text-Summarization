@@ -38,7 +38,7 @@ class NewsSummaryModel(pl.LightningModule):
                           decoder_attention_mask=labels_attention_mask,
                           labels=labels
                           )
-      self.log("train_loss", loss, prog_bar=True, logger=True)
+      self.log("Train Loss", loss, prog_bar=True, logger=True)
       return loss
 
   def validation_step(self, batch, batch_idx):
@@ -52,7 +52,7 @@ class NewsSummaryModel(pl.LightningModule):
                           decoder_attention_mask=labels_attention_mask,
                           labels=labels
                           )
-      self.log("val_loss", loss, prog_bar=True, logger=True)
+      self.log("Val Loss", loss, prog_bar=True, logger=True)
       return loss
   
   def test_step(self, batch, batch_idx):
@@ -66,7 +66,7 @@ class NewsSummaryModel(pl.LightningModule):
                           decoder_attention_mask=labels_attention_mask,
                             labels=labels
                           )
-      self.log("test_loss", loss, prog_bar=True, logger=True)
+      self.log("Test Loss", loss, prog_bar=True, logger=True)
       return loss
 
   def configure_optimizers(self):
