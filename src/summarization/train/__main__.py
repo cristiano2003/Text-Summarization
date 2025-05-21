@@ -124,7 +124,7 @@ def train(model_name):
             callbacks=[checkpoint_callback, lr_callback],
             max_epochs=N_EPOCHS,
             enable_progress_bar=True,
-            log_every_n_steps=500,
+            log_every_n_steps=2000,
             # val_check_interval=1000,
             accumulate_grad_batches=8
         )
