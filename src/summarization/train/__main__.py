@@ -125,7 +125,7 @@ def train(model_name):
             enable_progress_bar=True,
             log_every_n_steps=500,
             # val_check_interval=1000,
-            accumulate_grad_batches=4
+            accumulate_grad_batches=8
         )
         
 
