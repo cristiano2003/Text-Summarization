@@ -11,7 +11,7 @@ class NewsSummaryDataset(Dataset):
   def __init__(self,
                data: datasets.arrow_dataset.Dataset,
                tokenizer,
-               text_max_token_len: int = 512,
+               text_max_token_len: int = 128,
                summary_max_token_len: int = 128
               ):
     self.tokenizer = tokenizer
@@ -34,7 +34,7 @@ class NewsSummaryDataset(Dataset):
 
   def __getitem__(self, index: int):
     data_row = self.data[index]
-    text, summary = data_row['en']['text'], data_row['vi']['text']
+    text, summary = data_row['vi']['text'], data_row['en']['text']
     
     text_encoding = self.encoding_plus(text, self.text_max_token_len)
     summary_encoding = self.encoding_plus(summary, self.summary_max_token_len)

@@ -80,14 +80,14 @@ def train(model_name):
     BATCH_SIZE = args.batch_size
 
 
-    tokenizer = AutoTokenizer.from_pretrained("vinai/vinai-translate-vi2en", model_max_length=128)
-    model = AutoModelForSeq2SeqLM.from_pretrained("vinai/vinai-translate-vi2en")
+    tokenizer = AutoTokenizer.from_pretrained("vinai/vinai-translate-en2vi", model_max_length=128)
+    model = AutoModelForSeq2SeqLM.from_pretrained("vinai/vinai-translate-en2vi")
 
    
     
     
     
-        
+       
     data_module = NewsSummaryDataModule(train_data, val_data, tokenizer, batch_size=BATCH_SIZE, num_workers=8)
 
     model = NewsSummaryModel(model)
@@ -105,7 +105,7 @@ def train(model_name):
     name = f"{model_name}" # -{args.max_epochs}-{args.batch_size}"
     if args.wandb:    
         wandb.login(key=args.wandb_key)
-        logger = WandbLogger(project="vinai-translate-test",
+        logger = WandbLogger(project="vinai-translate",
                                 name=name,
                                 log_model="all")
 
@@ -114,7 +114,7 @@ def train(model_name):
             callbacks=[checkpoint_callback, lr_callback],
             max_epochs=N_EPOCHS,
             enable_progress_bar=True,
-            log_every_n_steps=100, 
+            log_every_n_steps=1000, 
             # val_check_interval=1000,
             accumulate_grad_batches=8
         )
